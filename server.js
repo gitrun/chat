@@ -93,9 +93,18 @@ app.get("/auth/callback", passport.authenticate("github", { failureRedirect: "/a
   res.redirect("/");
 });
 
+
+
+var server = require("http").createServer(app);
+var io = require("socket.io").listen(server);
+
 app.post("/hook", function(req, res){
-  console.log("Hook was called", req.body);
+  var payload  = req.body;
+  console.log("Hook was called", payload);
+  io.sockets.emit("this", { will: 'be received by everyone'});
+  // we have payload.comment which has body and user. 
   res.send();
 });
 
-app.listen(3000);  
+
+server.listen(3000);  
