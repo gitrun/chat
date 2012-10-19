@@ -29,7 +29,7 @@ $(function(){
   }
 
   function renderHomePage(){}
-  function renderChatPage(){
+  function renderChatPage(ctx){
 
     function renderParticipants(participants){
       var el = $('.chat-mates');
@@ -46,7 +46,7 @@ $(function(){
 
     function renderHistory(){
       if(!_.isEmpty(gChat.user.username)){
-        var commentsUrl = 'https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken;
+        var commentsUrl = 'https://api.github.com/repos/' + ctx.user + '/' + ctx.repo + '/issues/' + ctx.id + '/comments?access_token=' + gChat.user.accessToken;
         $.getJSON(commentsUrl, function(issueCommentsData){
           var issueCommentsContainer = $('#issue-comments');
           
@@ -91,7 +91,7 @@ $(function(){
       $('.msg-area').focus();
       renderMessage(msg, gChat.user, new Date().toISOString());
       var msgData = {'body': msg};
-      var commentsUrl = 'https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken;
+      var commentsUrl = 'https://api.github.com/repos/' + ctx.user + '/' + ctx.repo + '/issues/' + ctx.id + '/comments?access_token=' + gChat.user.accessToken;
       $.post(commentsUrl, JSON.stringify(msgData), function(data) {
         console.log('done!');
       });
@@ -107,26 +107,27 @@ $(function(){
     });
 
     renderHistory();
-
+    
+    var socket = io.connect('http://gitchat.jit.su');
+    socket.on('messages', function (data) {
+      console.log('message from server',data);
+      if(data.comment.user.login != gChat.user.username){
+        renderMessage(data.comment.body, data.comment.user, data.comment.created_at);
+        // 0 is PERMISSION_ALLOWED
+        if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
+          // function defined in step 2
+          window.webkitNotifications.createNotification(
+          '', 'New message from ' + data.comment.user.login, data.comment.body).show();
+        }
+      }
+    });
 
   }
 
 
   
 
-  var socket = io.connect('http://gitchat.jit.su');
-  socket.on('messages', function (data) {
-    console.log('message from server',data);
-    if(data.comment.user.login != gChat.user.username){
-      renderMessage(data.comment.body, data.comment.user, data.comment.created_at);
-      // 0 is PERMISSION_ALLOWED
-      if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
-        // function defined in step 2
-        window.webkitNotifications.createNotification(
-        '', 'New message from ' + data.comment.user.login, data.comment.body).show();
-      }
-    }
-  });
+  
 
   // ROUTER
 

@@ -9,7 +9,7 @@ html(lang="en")
     link(rel="stylesheet", href="/index.css")   
     script
       var gChat = {};
-      gChat.user =  {
+      gChat.user = {
         id: '#{user.id}',
         username: '#{user.username}',
         avatar: '#{user.avatar}',
@@ -23,8 +23,12 @@ html(lang="en")
       img.avatar
       span
     a(href="/auth").unlogined-show Login
-    a(href="/logout").logined-show Logout      
+    a(href="/logout").logined-show Logout 
     #home-page.page.invisible
+      form(onsubmit="return false;")
+        input#chat-room-name
+        textarea#chat-room-members
+        button#create-chat-room Create room
     #chat-page.page.invisible   
       div#chat
         div.chat-body
