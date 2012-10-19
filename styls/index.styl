@@ -4,6 +4,8 @@ global-reset();
   box-sizing: border-box;
   outline: 0;
 html
+  font-family: Helvetica, Arial, sans-serif;
+  color: #333333;
   height: 100%;
   overflow-x: hidden;
 
@@ -17,9 +19,8 @@ html
       display: block;
     & .unlogined-show
       display: none;
-      
 body
-  font: Helvetica, Arial, sans-serif;
+  color: #333333;
 
 .chat-mates
   width: 200px;
@@ -39,7 +40,7 @@ body
   & .sender
     height: 45px;
     width: 250px;
-    background-color: #e4e4e4;
+    background-color: #f3f3f3;
     display: inline-block;
     position: relative;
     &:after
@@ -55,6 +56,7 @@ body
       width: 35px;
       height: 35px;
       margin: 5px 10px 5px 5px;
+      float: left;
 
 .msg:nth-child(odd)
   background-color: #eeeeee;
