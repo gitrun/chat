@@ -31,11 +31,18 @@ $(function(){
 
   function renderMessage(msg, user, date){
     var readableDate = moment(date).fromNow();
-    var html = '<div class="msg"><p class="msg-body">' + msg + '</p></div>';
+    var username = user.username || user.login;
+    var avatar = user.avatar || user.avatar_url;
+    var html = '<div class="msg">';
+    html += '<div class="sender"><span>' + username + '</span>';
+    html += '<img class="avatar" src="' + avatar + '">';
+    html += '<p class="msg-body">' + msg;
+    html += '<span class="date">' + readableDate  + '</span></p></div>';
+
     chatContainer.append(html);
   }
 
-
+        
   function postMsg(){
     var msg = $('.msg-area').val();
 
@@ -65,6 +72,8 @@ $(function(){
   var socket = io.connect('http://gitchat.jit.su');
   socket.on('messages', function (data) {
     console.log('message from server',data);
-    renderMessage(data.comment.body, data.comment.user, data.comment.created_at);
+    if(data.comment.user.username != gChat.user.username){
+      renderMessage(data.comment.body, data.comment.user, data.comment.created_at);
+    }
   });
 });
