@@ -17,4 +17,11 @@ html(lang="en")
         accessToken: '#{user.accessToken}'
       };          
   body
-    div Hello
+    input.msg
+    button.msg-send Send
+    div.chat-body
+      p.msg-body
+        span.sender
+        span.date
+    div.chat-mates
+      div.mate-name
