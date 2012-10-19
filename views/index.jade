@@ -18,6 +18,11 @@ html(lang="en")
       };
     script(src="/socket.io/socket.io.js")            
   body
+    div.user.logined-show
+      img.avatar
+      span
+    a(href="/auth").unlogined-show Login
+    a(href="/logout").logined-show Logout
     div#chat
       div.chat-body
       div.msg
