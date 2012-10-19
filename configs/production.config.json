@@ -1,0 +1,5 @@
+{
+  "GITHUB_CLIENT_ID"     : "f8a4688ec62df2074d83",
+  "GITHUB_CLIENT_SECRET" : "b840faf267cf03f051181e914e494da575900af9",
+  "GITHUB_CALLBACK_URL"  : "http://gitchat.jit.su/auth/callback"
+}

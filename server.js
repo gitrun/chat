@@ -1,8 +1,20 @@
 var express        = require("express"),
     stylus         = require("stylus"),
     nib            = require("nib"),
+    nconf          = require("nconf"),
     passport       = require("passport"),
     GitHubStrategy = require("passport-github").Strategy;
+
+
+var app = module.exports = express();
+
+
+nconf
+  .argv()
+  .env()
+  .file({file: __dirname + "/configs/" + app.settings.env + ".config.json"})
+  .defaults({"NODE_ENV": "development"});
+
 
 passport.serializeUser(function(user, done){
   done(null, user);
@@ -15,9 +27,9 @@ passport.deserializeUser(function(obj, done){
 
 
 passport.use(new GitHubStrategy({
-    clientID: "267b48cbb0ac477693ba",
-    clientSecret: "de6d2f2ab9527737e1a8a29410d483ab4a7e586c",
-    callbackURL: "http://localhost:3000/auth/callback"
+    clientID: nconf.get("GITHUB_CLIENT_ID"),
+    clientSecret: nconf.get("GITHUB_CLIENT_SECRET"),
+    callbackURL: nconf.get("GITHUB_CALLBACK_URL")
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function(){
@@ -27,10 +39,6 @@ passport.use(new GitHubStrategy({
     });
   }
 ));
-
-
-var app = module.exports = express();
-
 
 // stylus compile function
 var compile = function(str, path){

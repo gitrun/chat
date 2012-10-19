@@ -1,0 +1,5 @@
+{
+  "GITHUB_CLIENT_ID"     : "267b48cbb0ac477693ba",
+  "GITHUB_CLIENT_SECRET" : "de6d2f2ab9527737e1a8a29410d483ab4a7e586c",
+  "GITHUB_CALLBACK_URL"  : "http://localhost:3000/auth/callback"
+}
