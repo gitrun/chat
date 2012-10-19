@@ -6,5 +6,14 @@ html(lang="en")
     meta(name="description", content="Chat build on top of GitHub API")
     meta(name="keywords", content="chat, github, api, socket.io")
     meta(name="author", content="Enginimation Team")
+    script
+      var gChat = {};
+      gChat.user =  {
+        username: '#{user.username}',
+        avatar: '#{user.avatar}',
+        profileUrl: '#{user.profileUrl}',
+        displayName: '#{user.displayName}',
+        accessToken: '#{user.accessToken}'
+      };          
   body
     div Hello
