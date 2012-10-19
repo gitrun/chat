@@ -31,21 +31,23 @@ $(function(){
   }
 
   function renderHistory(){
-    var commentsUrl = 'https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken;
-    $.getJSON(commentsUrl, function(issueCommentsData){
-      var issueCommentsContainer = $('#issue-comments');
-      
-      var participants = [];
-      var i = 0;
-      
-      for (; i < issueCommentsData.length; i++) {
-        participants.push(issueCommentsData[i].user);
-        renderMessage(issueCommentsData[i].body, issueCommentsData[i].user, issueCommentsData[i].created_at);
-      }
-      participants.push(gChat.user);
-      participants = _.uniq(participants, false, function(user){ return parseInt(user.id, 10);});
-      renderParticipants(participants);
-    });
+    if(!_.isEmpty(gChat.user.username)){
+      var commentsUrl = 'https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken;
+      $.getJSON(commentsUrl, function(issueCommentsData){
+        var issueCommentsContainer = $('#issue-comments');
+        
+        var participants = [];
+        var i = 0;
+        
+        for (; i < issueCommentsData.length; i++) {
+          participants.push(issueCommentsData[i].user);
+          renderMessage(issueCommentsData[i].body, issueCommentsData[i].user, issueCommentsData[i].created_at);
+        }
+        participants.push(gChat.user);
+        participants = _.uniq(participants, false, function(user){ return parseInt(user.id, 10);});
+        renderParticipants(participants);
+      });
+    }
   }
 
   function renderMessage(msg, user, date){
