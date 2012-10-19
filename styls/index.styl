@@ -43,6 +43,8 @@ body
     background-color: #f3f3f3;
     display: inline-block;
     position: relative;
+    vertical-align: middle;
+    float: left;
     &:after
       content: "";
       display: inline-block;
@@ -50,15 +52,28 @@ body
       height: 0; 
       border-top: 10px solid transparent;
       border-bottom: 10px solid transparent;
-      border-left: 10px solid green;
+      border-left: 10px solid #f3f3f3;
       position: absolute;
+      right: -10px;
+      top: 12px;
     & .avatar
       width: 35px;
       height: 35px;
-      margin: 5px 10px 5px 5px;
+      margin: 5px;
       float: left;
+      vertical-align: middle;
+  & .msg-body
+    margin-left: 270px;
 
 .msg:nth-child(odd)
   background-color: #eeeeee;
   & .sender
     background-color: #dddddd;
+    &:after
+      border-left: 10px solid #dddddd;
+
+.date
+  display: block;
+  font-size: 11px;
+  color: #888;
+  margin-top: 3px;
