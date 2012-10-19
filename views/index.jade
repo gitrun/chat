@@ -18,12 +18,16 @@ html(lang="en")
       };
     script(src="/socket.io/socket.io.js")            
   body
-    textarea.msg-area
-    button#msg-send Send
-    div.chat-body
-      p.msg-body
+    div#chat
+      div.chat-body
+      div.msg
         span.sender
-        span.date
+          img.avatar
+        p.msg-body
+          span.date
+      div#input-area
+        textarea.msg-area
+        button#msg-send Send
     div.chat-mates
       div.mate-name
   script(src="js/underscore-min.js")

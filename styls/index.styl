@@ -4,13 +4,30 @@ global-reset();
   box-sizing: border-box;
   outline: 0;
 
+body
+  font: 
+
 .chat-mates
   width: 200px;
   height: 100%;
   background-color: #3366cc;
   position: fixed;
-  left: 0;
+  right: 0;
   top: 0;
 
-.chat-body
-  margin-left: 200px;
+#input-area
+  position: fixed;
+  bottom: 0;
+
+.msg
+  height: 55px;
+  background-color: #eeeeee;
+  & .sender
+    width: 250px;
+    & .avatar
+      width: 35px;
+      height: 35px;
+      margin: 10px;
+
+.msg:nth-child(odd)
+  background-color: #e6e6e6;
