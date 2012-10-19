@@ -39,7 +39,7 @@ body
   background-color: #ffffff;
   & .sender
     height: 45px;
-    width: 250px;
+    width: 45px;
     background-color: #f3f3f3;
     display: inline-block;
     position: relative;
@@ -62,8 +62,9 @@ body
       margin: 5px;
       float: left;
       vertical-align: middle;
+      opacity: 0.9;
   & .msg-body
-    margin-left: 270px;
+    margin-left: 65px;
 
 .msg:nth-child(odd)
   background-color: #eeeeee;
@@ -72,8 +73,8 @@ body
     &:after
       border-left: 10px solid #dddddd;
 
-.date
-  display: block;
+.date, .by-label, .author
+  display: inline-block;
   font-size: 11px;
   color: #888;
-  margin-top: 3px;
+  margin: 3px 2px 0px 0px;
