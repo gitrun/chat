@@ -93,4 +93,9 @@ app.get("/auth/callback", passport.authenticate("github", { failureRedirect: "/a
   res.redirect("/");
 });
 
+app.post("/hook", function(req, res){
+  console.log("Hook was called", req.body);
+  res.send();
+});
+
 app.listen(3000);  
