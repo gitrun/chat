@@ -22,15 +22,18 @@ html(lang="en")
     div.user.logined-show
       img.avatar
       span
-    a(href="/auth").unlogined-show Login
-    a(href="/logout").logined-show Logout
-    div#chat
-      div.chat-body
-      div#input-area
-        textarea(rows="3").msg-area
-        button#msg-send Send
-    ul.chat-mates
-  script(src="js/underscore-min.js")
-  script(src="js/moment.min.js")
-  script(src="js/jquery-1.8.2.min.js")
-  script(src="js/app.js")
+    #home-page.page.invisible
+    #chat-page.page.invisible   
+      a(href="/auth").unlogined-show Login
+      a(href="/logout").logined-show Logout
+      div#chat
+        div.chat-body
+        div#input-area
+          textarea.msg-area
+          button#msg-send Send
+      ul.chat-mates
+  script(src="/js/underscore-min.js")
+  script(src="/js/moment.min.js")
+  script(src="/js/jquery-1.8.2.min.js")
+  script(src="/js/page.js")
+  script(src="/js/app.js")

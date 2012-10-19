@@ -16,80 +16,8 @@ $(function(){
     }
   }
 
-  
-  function renderParticipants(participants){
-    var el = $('.chat-mates');
-    var i = 0;
-    for(;i < participants.length; i++){
-      var user = participants[i];
-      var username = user.username || user.login;
-      var avatar = user.avatar || user.avatar_url;
-      var html = '<li><img class="avatar" src="' + avatar + '"><span>' + username + '</span></li>';
-      el.append(html);
-    }
 
-  }
-
-  function renderHistory(){
-    var commentsUrl = 'https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken;
-    $.getJSON(commentsUrl, function(issueCommentsData){
-      var issueCommentsContainer = $('#issue-comments');
-      
-      var participants = [];
-      var i = 0;
-      
-      for (; i < issueCommentsData.length; i++) {
-        participants.push(issueCommentsData[i].user);
-        renderMessage(issueCommentsData[i].body, issueCommentsData[i].user, issueCommentsData[i].created_at);
-      }
-      participants.push(gChat.user);
-      participants = _.uniq(participants, false, function(user){ return parseInt(user.id, 10);});
-      renderParticipants(participants);
-    });
-  }
-
-  function renderMessage(msg, user, date){
-    var readableDate = moment(date).fromNow();
-    var username = user.username || user.login;
-    var avatar = user.avatar || user.avatar_url;
-    var html = '<div class="msg">';
-    html += '<div class="sender">';
-    html += '<img class="avatar" src="' + avatar + '"></div>';
-    html += '<div class="msg-body"><p>' + msg + '</p>';
-    html += '<span class="date">' + readableDate  + '</span><span class="by-label">by</span><span class="author">' + username + '</span></div></div>';
-
-    chatContainer.append(html);
-  }
-
-        
-  function postMsg(){
-    if(window.webkitNotifications){
-      window.webkitNotifications.requestPermission();
-    }
-    var msg = $('.msg-area').val();
-
-
-    $('.msg-area').val('');
-    $('.msg-area').focus();
-    renderMessage(msg, gChat.user, new Date().toISOString());
-    var msgData = {'body': msg};
-    var commentsUrl = 'https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken;
-    $.post(commentsUrl, JSON.stringify(msgData), function(data) {
-      console.log('done!');
-    });
-  }
-
-  $('#msg-send').on("click", postMsg);
-  $('.msg-area').keypress(function(e) {
-  
-    if(e.keyCode == 13) {
-      e.preventDefault();
-      postMsg();
-    }
-  });
-  
-
-  function renderHeader(){
+  function renderHeader(ctx, next){
     if(_.isEmpty(gChat.user.username)){
       $('html').addClass('unlogined');
     } else{
@@ -97,11 +25,94 @@ $(function(){
       $('div.user img').attr('src', gChat.user.avatar);
       $('div.user span').text(gChat.user.username);
     }
+    next();
+  }
+
+  function renderHomePage(){}
+  function renderChatPage(){
+
+    function renderParticipants(participants){
+      var el = $('.chat-mates');
+      var i = 0;
+      for(;i < participants.length; i++){
+        var user = participants[i];
+        var username = user.username || user.login;
+        var avatar = user.avatar || user.avatar_url;
+        var html = '<li><img class="avatar" src="' + avatar + '"><span>' + username + '</span></li>';
+        el.append(html);
+      }
+
+    }
+
+    function renderHistory(){
+      if(!_.isEmpty(gChat.user.username)){
+        var commentsUrl = 'https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken;
+        $.getJSON(commentsUrl, function(issueCommentsData){
+          var issueCommentsContainer = $('#issue-comments');
+          
+          var participants = [];
+          var i = 0;
+          
+          for (; i < issueCommentsData.length; i++) {
+            participants.push(issueCommentsData[i].user);
+            renderMessage(issueCommentsData[i].body, issueCommentsData[i].user, issueCommentsData[i].created_at);
+          }
+          participants.push(gChat.user);
+          participants = _.uniq(participants, false, function(user){ return parseInt(user.id, 10);});
+          renderParticipants(participants);
+        });
+      }
+    }
+
+    function renderMessage(msg, user, date){
+      var readableDate = moment(date).fromNow();
+      var username = user.username || user.login;
+      var avatar = user.avatar || user.avatar_url;
+      var html = '<div class="msg">';
+      html += '<div class="sender">';
+      html += '<img class="avatar" src="' + avatar + '"></div>';
+      html += '<div class="msg-body"><p>' + msg + '</p>';
+      html += '<span class="date">' + readableDate  + '</span><span class="by-label">by</span><span class="author">' + username + '</span></div></div>';
+
+      chatContainer.append(html);
+    }
+
+
+
+
+    function postMsg(){
+      if(window.webkitNotifications){
+        window.webkitNotifications.requestPermission();
+      }
+      var msg = $('.msg-area').val();
+
+
+      $('.msg-area').val('');
+      $('.msg-area').focus();
+      renderMessage(msg, gChat.user, new Date().toISOString());
+      var msgData = {'body': msg};
+      var commentsUrl = 'https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken;
+      $.post(commentsUrl, JSON.stringify(msgData), function(data) {
+        console.log('done!');
+      });
+    }
+
+    $('#msg-send').on("click", postMsg);
+    $('.msg-area').keypress(function(e) {
+    
+      if(e.keyCode == 13) {
+        e.preventDefault();
+        postMsg();
+      }
+    });
+
+    renderHistory();
+
+
   }
 
 
-  renderHeader();
-  renderHistory();
+  
 
   var socket = io.connect('http://gitchat.jit.su');
   socket.on('messages', function (data) {
@@ -112,8 +123,24 @@ $(function(){
       if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
         // function defined in step 2
         window.webkitNotifications.createNotification(
-        '', 'New message from ' + data.comment.user.username, data.comment.body).show();
+        '', 'New message from ' + data.comment.user.login, data.comment.body).show();
       }
     }
   });
+
+  // ROUTER
+
+  page('', renderHeader, function(){
+    showPage('home-page', 'Create Chat room', renderHomePage);
+  });
+
+ 
+  page('/group/:user/:repo/:id', renderHeader, function(ctx){
+    showPage('chat-page', "Chat Room", function(){
+      renderChatPage(ctx.params);
+    });
+  });
+
+
+  page.start({ click: false });
 });
