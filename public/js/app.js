@@ -34,16 +34,19 @@ $(function(){
     var username = user.username || user.login;
     var avatar = user.avatar || user.avatar_url;
     var html = '<div class="msg">';
-    html += '<div class="sender"><span>' + username + '</span>';
+    html += '<div class="sender">';
     html += '<img class="avatar" src="' + avatar + '"></div>';
     html += '<p class="msg-body">' + msg;
-    html += '<span class="date">' + readableDate  + '</span></p></div>';
+    html += '<span class="date">' + readableDate  + '</span><span class="by-label">by</span><span class="author">' + username + '</span></p></div>';
 
     chatContainer.append(html);
   }
 
         
   function postMsg(){
+    if(window.webkitNotifications){
+      window.webkitNotifications.requestPermission();
+    }
     var msg = $('.msg-area').val();
 
 
@@ -86,6 +89,12 @@ $(function(){
     console.log('message from server',data);
     if(data.comment.user.username != gChat.user.username){
       renderMessage(data.comment.body, data.comment.user, data.comment.created_at);
+      // 0 is PERMISSION_ALLOWED
+      if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
+        // function defined in step 2
+        window.webkitNotifications.createNotification(
+        '', 'New message from ' + data.comment.user.username, data.comment.body);
+      }
     }
   });
 });
