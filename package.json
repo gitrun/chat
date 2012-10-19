@@ -1,0 +1,15 @@
+{
+  "name": "gitchat",
+  "version": "0.0.1",
+  "description": "Simple chat on top of GitHub API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marynaaleksandrova/gitchat.git"
+  },
+  "author": "Enginimation Team",
+  "license": "MIT"
+}
