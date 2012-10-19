@@ -10,7 +10,7 @@ passport.serializeUser(function(user, done){
 
 passport.deserializeUser(function(obj, done){
   done(null, obj);
-});  
+});
 
 
 
@@ -24,12 +24,12 @@ passport.use(new GitHubStrategy({
       profile.accessToken = accessToken;
       profile.avatar = profile._json.avatar_url;
       return done(null, profile);
-    });  
+    });
   }
 ));
 
 
-var app = module.exports = express();    
+var app = module.exports = express();
 
 
 // stylus compile function
@@ -47,9 +47,9 @@ var compile = function(str, path){
 app.configure(function(){
   //stylus
   app.use(stylus.middleware({
-    src    : __dirname + "/styls",  
-    dest   : __dirname + "/public", 
-    compile: compile   
+    src    : __dirname + "/styls",
+    dest   : __dirname + "/public",
+    compile: compile
   }));
 
   // views
@@ -67,9 +67,7 @@ app.configure(function(){
   app.use(passport.session());
 
   app.use(app.router);
-
-
-  app.use(express.static(__dirname + "/public"));  
+  app.use(express.static(__dirname + "/public"));
 });
   
 
@@ -101,8 +99,8 @@ var io = require("socket.io").listen(server);
 app.post("/hook", function(req, res){
   var payload  = req.body;
   console.log("Hook was called", payload);
-  io.sockets.emit("messages", { will: 'be received by everyone'});
-  // we have payload.comment which has body and user. 
+  // we have payload.comment which has body and user.
+  io.sockets.emit("messages", payload);
   res.send();
 });
 
