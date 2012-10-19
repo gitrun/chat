@@ -17,11 +17,14 @@ html(lang="en")
         accessToken: '#{user.accessToken}'
       };          
   body
-    input.msg
-    button.msg-send Send
+    textarea.msg-area
+    button#msg-send Send
     div.chat-body
       p.msg-body
         span.sender
         span.date
     div.chat-mates
       div.mate-name
+  script(src="js/underscore-min.js")
+  script(src="js/jquery-1.8.2.min.js")
+  script(src="js/app.js")
