@@ -8,7 +8,6 @@ html
   color: #333333;
   height: 100%;
   overflow-x: hidden;
-
   &.unlogined
     & .unlogined-show
       display: block;
@@ -26,10 +25,11 @@ body
 .chat-body
   position: absolute;
   width: 100%;
-  bottom: 90px;
+  bottom: 97px;
+  padding-right: 250px;
 
 .chat-mates
-  width: 200px;
+  width: 250px;
   height: 100%;
   background-color: #3366cc;
   position: fixed;
@@ -39,6 +39,16 @@ body
 #input-area
   position: fixed;
   bottom: 0;
+  background-color: #0F202E;
+  height: 97px;
+  width: 100%;
+  padding: 20px;
+  padding-right: 250px;
+
+textarea
+  left: 0;
+  right: 0;
+  width: 100%;
 
 .msg
   height: 45px;
@@ -85,3 +95,12 @@ body
   font-size: 11px;
   color: #888;
   margin: 5px 2px 0px 0px;
+
+.visible
+  display: block;
+
+.inline-visible
+  display: inline-block;
+
+.invisible
+  display: none;
