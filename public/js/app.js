@@ -75,7 +75,6 @@ $(function(){
       $('div.user img').attr('src', gChat.user.avatar);
       $('div.user span').text(gChat.user.username);
     }
-    next();
   }
 
 
