@@ -31,7 +31,7 @@ $(function(){
 
   function renderMessage(msg, user, date){
     var readableDate = moment(date).fromNow();
-    var html = '<div class="mesages"><p class="msg-body">' + msg + '</p></div>';
+    var html = '<div class="msg"><p class="msg-body">' + msg + '</p></div>';
     chatContainer.append(html);
   }
 
