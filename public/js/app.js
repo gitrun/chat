@@ -20,8 +20,9 @@ $(function(){
     $('.msg-area').val('');
     $('.msg-area').focus();
 
-    $.post('https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments', JSON.stringify('issueData'), function(data) {
-
+    var msgData = {'body': msg};
+    $.post('https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken, JSON.stringify(msgData), function(data) {
+      console.log('done!');
     });
   }
 
