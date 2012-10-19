@@ -36,8 +36,8 @@ $(function(){
     var html = '<div class="msg">';
     html += '<div class="sender">';
     html += '<img class="avatar" src="' + avatar + '"></div>';
-    html += '<p class="msg-body">' + msg;
-    html += '<span class="date">' + readableDate  + '</span><span class="by-label">by</span><span class="author">' + username + '</span></p></div>';
+    html += '<div class="msg-body"><p>' + msg + '</p>';
+    html += '<span class="date">' + readableDate  + '</span><span class="by-label">by</span><span class="author">' + username + '</span></div></div>';
 
     chatContainer.append(html);
   }
@@ -93,7 +93,7 @@ $(function(){
       if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
         // function defined in step 2
         window.webkitNotifications.createNotification(
-        '', 'New message from ' + data.comment.user.username, data.comment.body);
+        '', 'New message from ' + data.comment.user.username, data.comment.body).show();
       }
     }
   });
