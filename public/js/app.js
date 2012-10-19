@@ -34,4 +34,9 @@ $(function(){
     }
   });
   
+
+  var socket = io.connect('http://gitchat.jit.su');
+  socket.on('messages', function (data) {
+    console.log('message from server',data);   
+  });
 });

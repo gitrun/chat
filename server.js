@@ -101,7 +101,7 @@ var io = require("socket.io").listen(server);
 app.post("/hook", function(req, res){
   var payload  = req.body;
   console.log("Hook was called", payload);
-  io.sockets.emit("this", { will: 'be received by everyone'});
+  io.sockets.emit("messages", { will: 'be received by everyone'});
   // we have payload.comment which has body and user. 
   res.send();
 });

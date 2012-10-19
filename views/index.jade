@@ -15,7 +15,8 @@ html(lang="en")
         profileUrl: '#{user.profileUrl}',
         displayName: '#{user.displayName}',
         accessToken: '#{user.accessToken}'
-      };          
+      };
+    script(src="/socket.io/socket.io.js")            
   body
     textarea.msg-area
     button#msg-send Send
