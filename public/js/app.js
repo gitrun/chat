@@ -67,6 +67,19 @@ $(function(){
   });
   
 
+  function renderHeader(){
+    if(_.isEmpty(gChat.user.username)){
+      $('html').addClass('unlogined');
+    } else{
+      $('html').addClass('logined');
+      $('div.user img').attr('src', gChat.user.avatar);
+      $('div.user span').text(gChat.user.username);
+    }
+    next();
+  }
+
+
+  renderHeader();
   renderHistory();
 
   var socket = io.connect('http://gitchat.jit.su');
