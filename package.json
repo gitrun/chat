@@ -1,10 +1,11 @@
 {
   "name": "gitchat",
-  "version": "0.0.1",
+  "version": "0.0.1-2",
   "description": "Simple chat on top of GitHub API",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "server.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,9 @@
     "jade": ">=0.26.3"
   },
   "author": "Enginimation Team",
-  "license": "MIT"
+  "license": "MIT",
+  "subdomain": "gitchat",
+  "engines": {
+    "node": "0.8.x"
+  }
 }
