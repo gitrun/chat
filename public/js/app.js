@@ -17,6 +17,18 @@ $(function(){
   }
 
   
+  function renderHistory(){
+    var commentsUrl = 'https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken;
+    $.getJSON(commentsUrl, function(issueCommentsData){
+      var issueCommentsContainer = $('#issue-comments');
+
+      var i = 0;
+      for (; i < issueCommentsData.length; i++) {
+        renderMessage(issueCommentsData[i].body, issueCommentsData[i].user, issueCommentsData[i].created_at);
+      }
+    });
+  }
+
   function renderMessage(msg, user, date){
     var readableDate = moment(date).fromNow();
     var html = '<div class="mesages"><p class="msg-body">' + msg + '</p></div>';
@@ -32,7 +44,8 @@ $(function(){
     $('.msg-area').focus();
     renderMessage(msg, gChat.user, new Date().toISOString());
     var msgData = {'body': msg};
-    $.post('https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken, JSON.stringify(msgData), function(data) {
+    var commentsUrl = 'https://api.github.com/repos/marynaaleksandrova/gitchat/issues/1/comments?access_token=' + gChat.user.accessToken;
+    $.post(commentsUrl, JSON.stringify(msgData), function(data) {
       console.log('done!');
     });
   }
@@ -46,6 +59,8 @@ $(function(){
     }
   });
   
+
+  renderHistory();
 
   var socket = io.connect('http://gitchat.jit.su');
   socket.on('messages', function (data) {
