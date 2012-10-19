@@ -3,7 +3,21 @@ global-reset();
 *
   box-sizing: border-box;
   outline: 0;
+html
+  height: 100%;
+  overflow-x: hidden;
 
+  &.unlogined
+    & .unlogined-show
+      display: block;
+    & .logined-show
+      display: none;
+  &.logined
+    & .logined-show
+      display: block;
+    & .unlogined-show
+      display: none;
+      
 body
   font: Helvetica, Arial, sans-serif;
 
@@ -27,6 +41,7 @@ body
     width: 250px;
     background-color: #e4e4e4;
     display: inline-block;
+    position: relative;
     &:after
       content: "";
       display: inline-block;
@@ -35,6 +50,7 @@ body
       border-top: 10px solid transparent;
       border-bottom: 10px solid transparent;
       border-left: 10px solid green;
+      position: absolute;
     & .avatar
       width: 35px;
       height: 35px;
