@@ -112,7 +112,7 @@ $(function(){
       if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
         // function defined in step 2
         window.webkitNotifications.createNotification(
-        '', 'New message from ' + data.comment.user.username, data.comment.body).show();
+        '', 'New message from ' + data.comment.user.login, data.comment.body).show();
       }
     }
   });
