@@ -22,10 +22,10 @@ html(lang="en")
     div.user.logined-show
       img.avatar
       span
+    a(href="/auth").unlogined-show Login
+    a(href="/logout").logined-show Logout      
     #home-page.page.invisible
     #chat-page.page.invisible   
-      a(href="/auth").unlogined-show Login
-      a(href="/logout").logined-show Logout
       div#chat
         div.chat-body
         div#input-area
