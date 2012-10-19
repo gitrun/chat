@@ -91,7 +91,7 @@ $(function(){
   });
   
 
-  function renderHeader(){
+  function renderHeader(ctx, next){
     if(_.isEmpty(gChat.user.username)){
       $('html').addClass('unlogined');
     } else{
@@ -99,10 +99,13 @@ $(function(){
       $('div.user img').attr('src', gChat.user.avatar);
       $('div.user span').text(gChat.user.username);
     }
+    next();
   }
+  
+  function renderHomePage(){}
+  function renderChatPage(){}
 
 
-  renderHeader();
   renderHistory();
 
   var socket = io.connect('http://gitchat.jit.su');
@@ -118,4 +121,20 @@ $(function(){
       }
     }
   });
+
+  // ROUTER
+
+  page('', renderHeader, function(){
+    showPage('home-page', 'Create Chat room', renderHomePage);
+  });
+
+ 
+  page('/group/:user/:repo/:id', renderHeader, function(ctx){
+    showPage('chat-page', "Chat Room", function(){
+      renderChatPage(ctx.params);
+    });
+  });
+
+
+  page.start({ click: false });
 });

@@ -86,6 +86,8 @@ renderIndexPage = function(req, res){
 
 app.get("/", renderIndexPage);
 
+app.get("/group/:user/:repo/:id", renderIndexPage);
+
 
 app.get("/auth", passport.authenticate("github", {scope: "repo"}), function(req, res){});
 
