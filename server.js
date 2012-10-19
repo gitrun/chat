@@ -1,5 +1,6 @@
 var express        = require("express"),
     stylus         = require("stylus"),
+    nib            = require("nib"),
     passport       = require("passport"),
     GitHubStrategy = require("passport-github").Strategy;
 
@@ -31,7 +32,25 @@ passport.use(new GitHubStrategy({
 var app = module.exports = express();    
 
 
+// stylus compile function
+var compile = function(str, path){
+
+  var func = stylus(str)
+    .define("url", stylus.url({ paths: [__dirname + "/public"] }))
+    .set("filename", path)
+    .set("warn", true)
+    .set("compress", true)
+    .use(nib());
+  return func;
+};
+
 app.configure(function(){
+  //stylus
+  app.use(stylus.middleware({
+    src    : __dirname + "/styls",  
+    dest   : __dirname + "/public", 
+    compile: compile   
+  }));
 
   // views
   app.set("views", __dirname + "/views");
