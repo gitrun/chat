@@ -10,6 +10,7 @@ html(lang="en")
     script
       var gChat = {};
       gChat.user =  {
+        id: '#{user.id}',
         username: '#{user.username}',
         avatar: '#{user.avatar}',
         profileUrl: '#{user.profileUrl}',
@@ -28,8 +29,7 @@ html(lang="en")
       div#input-area
         textarea.msg-area
         button#msg-send Send
-    div.chat-mates
-      div.mate-name
+    ul.chat-mates
   script(src="js/underscore-min.js")
   script(src="js/moment.min.js")
   script(src="js/jquery-1.8.2.min.js")
