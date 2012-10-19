@@ -35,7 +35,7 @@ $(function(){
     var avatar = user.avatar || user.avatar_url;
     var html = '<div class="msg">';
     html += '<div class="sender"><span>' + username + '</span>';
-    html += '<img class="avatar" src="' + avatar + '">';
+    html += '<img class="avatar" src="' + avatar + '"></div>';
     html += '<p class="msg-body">' + msg;
     html += '<span class="date">' + readableDate  + '</span></p></div>';
 
