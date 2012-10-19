@@ -20,14 +20,27 @@ body
   bottom: 0;
 
 .msg
-  height: 55px;
-  background-color: #eeeeee;
+  height: 45px;
+  background-color: #ffffff;
   & .sender
+    height: 45px;
     width: 250px;
+    background-color: #e4e4e4;
+    display: inline-block;
+    &:after
+      content: "";
+      display: inline-block;
+      width: 0; 
+      height: 0; 
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid green;
     & .avatar
       width: 35px;
       height: 35px;
-      margin: 10px;
+      margin: 5px 10px 5px 5px;
 
 .msg:nth-child(odd)
-  background-color: #e6e6e6;
+  background-color: #eeeeee;
+  & .sender
+    background-color: #dddddd;
