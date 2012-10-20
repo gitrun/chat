@@ -9,7 +9,7 @@ html(lang="en")
     link(rel="stylesheet", href="/index.css")   
     script
       var gChat = {};
-      gChat.user =  {
+      gChat.user = {
         id: '#{user.id}',
         username: '#{user.username}',
         avatar: '#{user.avatar}',
@@ -22,16 +22,23 @@ html(lang="en")
     div.user.logined-show
       img.avatar
       span
+    a(href="/auth").unlogined-show Login
+    a(href="/logout").logined-show Logout 
     #home-page.page.invisible
+      form(onsubmit="return false;")
+        title Create new Chat room
+        input#chat-room-name
+        select#user-repo-select(required)
+          option Choose repository
+        textarea#chat-room-members
+        button#create-chat-room-btn Create room
     #chat-page.page.invisible   
-      a(href="/auth").unlogined-show Login
-      a(href="/logout").logined-show Logout
       div#chat
         div.chat-body
         div#input-area
           div.input-wrapper
             div.textarea
-              textarea.msg-area
+              textarea(rows=2).msg-area
             button#msg-send Send
       ul.chat-mates
   script(src="/js/underscore-min.js")
