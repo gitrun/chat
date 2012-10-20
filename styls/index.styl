@@ -42,8 +42,13 @@ body
   background-color: #0F202E;
   height: 95px;
   width: 100%;
-  padding: 20px;
-  padding-right: 270px;
+  padding: 20px 270px 20px 5px;
+  &:hover #msg-send
+    background: #04a3c9 url('images/send-btn.png');
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+
 
 .input-wrapper
   width: 100%;
@@ -66,6 +71,10 @@ body
   border: none;
   height: 52px;
   width: 52px;
+  color: transparent;
+  background: #08bcd9 url('images/send-btn.png');
+  background-position: center;
+  background-repeat: no-repeat;
 
 .msg
   height: 45px;
