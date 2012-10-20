@@ -154,6 +154,8 @@ $(function(){
       console.log('message from server',data);
       if(data.comment.user.login != gChat.user.username){
         renderMessage("<p>" + data.comment.body + "</p>", data.comment.user, data.comment.created_at);
+        var scrollHeight = $(".chat-body")[0].scrollHeight;
+        $(".chat-body").animate({scrollTop: scrollHeight}, 800);
         // 0 is PERMISSION_ALLOWED
         if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
           var msg = data.comment.body.replace(/(<([^>]+)>)/ig,"");
