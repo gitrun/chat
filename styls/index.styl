@@ -28,6 +28,9 @@ body
   bottom: 97px;
   padding-right: 250px;
 
+.chat-body
+  overflow-y: auto;
+
 #chat-menu
   width: 250px;
   height: 100%;
@@ -37,8 +40,20 @@ body
   top: 0;
   color: white;
 
-.top-menu .avatar
-  border: 2px solid white;
+.top-menu
+  & .user img
+    float: left;
+  & .user span
+    padding-top: 5px;
+  & .user a
+    text-transform: uppercase;
+    color: white;
+    text-decoration: none;
+    margin-top: 6px;
+    &:hover
+      color: #0F202E;
+  & .avatar
+    border: 2px solid white;
 
 
 .avatar
