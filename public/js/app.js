@@ -61,7 +61,9 @@ $(function(){
           participants.push(issueCommentsData[i].user);
           renderMessage(issueCommentsData[i].body, issueCommentsData[i].user, issueCommentsData[i].created_at);
         }
-        participants.push(gChat.user);
+        if(!_.isEmpty(gChat.user.username)){
+          participants.push(gChat.user);
+        }
         participants = _.uniq(participants, false, function(user){ return parseInt(user.id, 10);});
         renderParticipants(participants);
       });
@@ -71,11 +73,12 @@ $(function(){
       var readableDate = moment(date).fromNow();
       var username = user.username || user.login;
       var avatar = user.avatar || user.avatar_url;
+      var profileLink = 'http://github.com/' + username;
       var html = '<div class="msg">';
       html += '<div class="sender">';
       html += '<img class="avatar" src="' + avatar + '"></div>';
       html += '<div class="msg-body"><p>' + msg + '</p>';
-      html += '<span class="date">' + readableDate  + '</span><span class="by-label">by</span><span class="author">' + username + '</span></div></div>';
+      html += '<span class="date">' + readableDate  + '</span><span class="by-label">by</span><a class="author" href="' + profileLink + '" target="_blank">' + username + '</a></div></div>';
 
       chatContainer.append(html);
     }
