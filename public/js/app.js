@@ -122,7 +122,16 @@ $(function(){
         postMsg();
       }
     });
+    
+    $('.toggle-panel-btn').on('click', function(){
+      var chatMenu = $("#chat-menu");
+      if(chatMenu.hasClass('maximized')){
+        chatMenu.removeClass('maximized').addClass("minimized");
+      } else {
+        chatMenu.removeClass('minimized').addClass("maximized");
+      }
 
+    });
     renderHistory();
     
     var socket = io.connect('http://gitchat.jit.su');
