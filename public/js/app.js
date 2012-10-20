@@ -98,6 +98,8 @@ $(function(){
       $('.msg-area').val('');
       $('.msg-area').focus();
       renderMessage(msg, gChat.user, new Date().toISOString());
+      var scrollHeight = $(".chat-body")[0].scrollHeight;
+      $(".chat-body").animate({scrollTop: scrollHeight}, 800);
       var msgData = {'body': msg};
       var commentsUrl = 'https://api.github.com/repos/' + ctx.user + '/' + ctx.repo + '/issues/' + ctx.id + '/comments?access_token=' + gChat.user.accessToken;
       $.post(commentsUrl, JSON.stringify(msgData), function(data) {
