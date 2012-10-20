@@ -21,6 +21,11 @@ html
 body
   color: #333333;
   font-size: 16px;
+  height: 100%;
+
+#intro-page
+  background: #eeeeee;
+  height: 100%;
 
 #chat
   position: absolute;
@@ -55,6 +60,17 @@ body
   & .avatar
     border: 2px solid white;
 
+.login-btn
+  border: none;
+  width: 249px;
+  height: 40px;
+  background-color: #04A3C9;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 17px;
+  &:hover
+    background-color: #0F202E;
 
 .avatar
     width: 35px;
@@ -151,6 +167,10 @@ body
   & .msg-body
     margin-left: 65px;
     padding-top: 7px;
+    & a
+      text-decoration: none;
+      &:hover
+        color: #0F202E;
 
 .msg:nth-child(odd)
   background-color: #eeeeee;
@@ -163,7 +183,7 @@ body
   display: inline-block;
   font-size: 12px;
   color: #888;
-  margin: 5px 2px 0px 0px;
+  margin: 5px 4px 0px 0px;
 
 .visible
   display: block;
