@@ -29,14 +29,31 @@ $(function(){
   }
 
   function renderHomePage(){
+
+    var userReposContainer = $('#user-repo-select');
+    function showUserRepos() {
+      var urlUserRepos = 'https://api.github.com/user/repos?access_token=' + gChat.user.accessToken;
+      $.getJSON(urlUserRepos, function(userRepos){
+        var html = "";
+
+        var m = 0;
+        for (; m < userRepos.length; m++) {
+          html += "<option>" + userRepos[m].full_name + "</option>";
+        }
+        userReposContainer.append(html);
+      });
+    }
+    
+    showUserRepos();
+
     $('#create-chat-room-btn').on('click', function(){
       var name = $('#chat-room-name').val();
       var members = $('#chat-room-name').val();
-      var data = {"title": name, "body": members};  
-      var url = 'https://api.github.com/repos/' + ctx.user + '/' + ctx.repo + '/issues/' + ctx.id + '?access_token=' + gChat.user.accessToken;
+      var data = {"title": name, "body": members};
+      var url = 'https://api.github.com/repos/' + userReposContainer.val() + '/issues?access_token=' + gChat.user.accessToken;
       $.post(url, JSON.stringify(data), function(data) {
-        var url = data.html_url.split("/")
-        page("/room/" + url[3] + "/" + url[4] + "/" + url[5] + "/" + url[6]);
+        var url = data.html_url.split("/");
+        page("/room/" + url[3] + "/" + url[4] + "/" + url[6]);
       });
     });
   }
