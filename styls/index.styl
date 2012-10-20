@@ -37,13 +37,19 @@ body
   top: 0;
   color: white;
 
-.chat-mates
-  vertical-align: middle;
-  & .avatar
+.top-menu .avatar
+  border: 2px solid white;
+
+
+.avatar
     width: 35px;
     height: 35px;
     margin: 5px;
     vertical-align: middle;
+
+.chat-mates
+  vertical-align: middle;
+  & .avatar
     border: 2px solid white;
   & span
     vertical-align: middle;
@@ -125,11 +131,7 @@ body
       right: -10px;
       top: 12px;
     & .avatar
-      width: 35px;
-      height: 35px;
-      margin: 5px;
       float: left;
-      vertical-align: middle;
       opacity: 0.9;
   & .msg-body
     margin-left: 65px;
