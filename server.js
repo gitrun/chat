@@ -109,8 +109,11 @@ var io = require("socket.io").listen(server);
 app.post("/hook", function(req, res){
   var payload  = req.body;
   console.log("Hook was called", payload);
+  var url = data.html_url.split("/");
+  var channel = url[3] + "/" + url[4] + "/" + url[6];
+  console.log('channel name', channel);
   // we have payload.comment which has body and user.
-  io.sockets.emit("messages", payload);
+  io.sockets.emit(channel, payload);
   res.send();
 });
 
