@@ -19,37 +19,8 @@ html(lang="en")
       };
     script(src="/socket.io/socket.io.js")            
   body
-    #intro-page.page.invisible
-      section
-       h1 Hi, Hackers!
-       div 
-         p There is obviously lack of chat apps in universe so we decided to solve this problem and build this one.
-         p Hmmm, ... but where is actually hack?
-         p What is really cool about it that we build it on top of GitHub API.
-           | So all chat history is saved to GitHub. Yeah, it's right, we are using GitHub as data storage!
-         p Created by <a href="https://twitter.com/m_aleksandrova" target="_blank">Maryna</a> and <a href="https://twitter.com/podviaznikov" target="_blank">Anton</a>.
-         p Join Berlin Hackathon Room <a href="/room/marynaaleksandrova/gitchat/4">here</a> and have fun!
-         p Checkout source code on <a href="https://github.com/marynaaleksandrova/gitchat" target="_blank">GitHub</a>
-         p We used <a href="http://www.nodejs.org/" target="_blank">Node.js</a>, <a href="http://socket.io/" target="_blank">Socket.io</a>
-    #chat-page.page.invisible   
-      div#chat
-        div.chat-body
-        div#input-area
-          div.input-wrapper
-            div.textarea
-              textarea(rows=2).msg-area
-            button#msg-send Send
-      div#chat-menu
-        ul.top-menu
-          li.user
-            img.avatar.logined-show
-            span.logined-show
-            button.unlogined-show.login-btn Login
-            a(href="/logout").logined-show Logout 
-        ul.chat-mates
-          div.users-icon
-            img(src="/images/users-icon.png")
-            span Users
+    include intro
+    include chat
   script(src="/js/underscore-min.js")
   script(src="/js/moment.min.js")
   script(src="/js/jquery-1.8.2.min.js")

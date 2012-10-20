@@ -1,0 +1,19 @@
+#chat-page.page.invisible   
+  div#chat
+    div.chat-body
+    div#input-area
+      div.input-wrapper
+        div.textarea
+          textarea(rows=2).msg-area
+        button#msg-send Send
+  div#chat-menu
+    ul.top-menu
+      li.user
+        img.avatar.logined-show
+        span.logined-show
+        button.unlogined-show.login-btn Login
+        a(href="/logout").logined-show Logout 
+    ul.chat-mates
+      div.users-icon
+        img(src="/images/users-icon.png")
+        span Users
