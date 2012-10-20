@@ -156,8 +156,9 @@ $(function(){
         renderMessage("<p>" + data.comment.body + "</p>", data.comment.user, data.comment.created_at);
         // 0 is PERMISSION_ALLOWED
         if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
+          var msg = data.comment.body.replace(/(<([^>]+)>)/ig,"");
           window.webkitNotifications.createNotification(
-          '/images/logo-blue.png', 'New message from ' + data.comment.user.login, data.comment.body).show();
+          '/images/logo-blue.png', 'New message from ' + data.comment.user.login, msg).show();
         }
       }
     });
@@ -174,7 +175,7 @@ $(function(){
   page('', renderHeader, function(){
     var lastUrl = localStorage.getItem('lastUrl');
     if(lastUrl){
-      localStorage.removeItem('lastUrl'); 
+      localStorage.removeItem('lastUrl');
       document.location.pathname = lastUrl;
     } else {
       showPage('intro-page', 'Intro', renderHomePage);
