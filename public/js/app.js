@@ -4,6 +4,12 @@ $(function(){
   var chatContainer = $('.chat-body');
   $('.msg-area').focus();
   
+
+  function makeHtml(md){
+    var mdConverter = new Showdown.converter();
+    return mdConverter.makeHtml(md);
+  }
+
   function showPage(pageName, pageTitle, fn){
     $('.page.visible').removeClass('visible').addClass('invisible');
 
