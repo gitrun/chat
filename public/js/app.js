@@ -54,9 +54,9 @@ $(function(){
     }
 
     function renderHistory(){
-      var commentsUrl = 'https://api.github.com/repos/' + ctx.user + '/' + ctx.repo + '/issues/' + ctx.id + '/comments';
+      var commentsUrl = 'https://api.github.com/repos/' + ctx.user + '/' + ctx.repo + '/issues/' + ctx.id + '/comments?per_page=1000';
       if(!_.isEmpty(gChat.user.username)){
-        commentsUrl += '?access_token=' + gChat.user.accessToken;
+        commentsUrl += '&access_token=' + gChat.user.accessToken;
       }
       chatContainer.spin();
       $.getJSON(commentsUrl, function(issueCommentsData){
@@ -158,7 +158,8 @@ $(function(){
     socket.on(channel, function (data) {
       console.log('message from server',data);
       if(data.comment.user.login != gChat.user.username){
-        renderMessage("<p>" + data.comment.body + "</p>", data.comment.user, data.comment.created_at);
+        var message = makeHtml(data.comment.body);
+        renderMessage(message, data.comment.user, data.comment.created_at);
         var scrollHeight = $(".chat-body")[0].scrollHeight;
         $(".chat-body").animate({scrollTop: scrollHeight}, 800);
         // 0 is PERMISSION_ALLOWED
