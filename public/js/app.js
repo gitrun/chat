@@ -127,7 +127,7 @@ $(function(){
         // 0 is PERMISSION_ALLOWED
         if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
           window.webkitNotifications.createNotification(
-          '', 'New message from ' + data.comment.user.login, data.comment.body).show();
+          '/images/logo-blue.png', 'New message from ' + data.comment.user.login, data.comment.body).show();
         }
       }
     });
@@ -144,8 +144,9 @@ $(function(){
   page('', renderHeader, function(){
     var lastUrl = localStorage.getItem('lastUrl');
     if(lastUrl){
-      page(lastUrl);
       localStorage.removeItem('lastUrl');
+      // page(lastUrl);     
+      document.location.pathname = lastUrl;
     } else {
       showPage('intro-page', 'Intro', renderHomePage);
     }
