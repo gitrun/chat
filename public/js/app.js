@@ -103,7 +103,9 @@ $(function(){
         window.webkitNotifications.requestPermission();
       }
       var msg = $('.msg-area').val();
-
+      if(!msg || msg.length == 0){
+        return;
+      }
 
       $('.msg-area').val('');
       $('.msg-area').focus();
