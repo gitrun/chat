@@ -100,6 +100,11 @@ $(function(){
 
 
     function postMsg(){
+      if(_.isEmpty(gChat.user.username)){
+        $('#popup-cover').show();
+        $('#popup').show();
+        return;
+      }
       if(window.webkitNotifications){
         window.webkitNotifications.requestPermission();
       }
