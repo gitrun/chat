@@ -24,19 +24,12 @@ html(lang="en")
        h1 Hi, Hackers!
        div 
          p There is obviously lack of chats in universe so we decided to solved this problem and build this one.&nbsp;
+         p ...But where is actually hack?
          p What is really cool about it that we build it on top of GitHub API.
-           | So all chat history is saved to GitHub. Yeah, it's right, we are using GitHub as data strogare!
+           | So all chat history is saved to GitHub. Yeah, it's right, we are using GitHub as data storage!
          p Created by <a href="https://twitter.com/m_aleksandrova" target="_blank">Maryna</a>, <a href="https://twitter.com/podviaznikov" target="_blank">Anton</a>.
-         p Join Berlin Hackathon
+         p Join Berlin Hackathon Room <a href="/room/marynaaleksandrova/gitchat/4">here</a> and have fun!
          p Checkout source code on <a href="https://github.com/marynaaleksandrova/gitchat" target="_blank">GitHub</a>
-    #create-page.page.invisible
-      form(onsubmit="return false;")
-        title Create new Chat room
-        input#chat-room-name
-        select#user-repo-select(required)
-          option Choose repository
-        textarea#chat-room-members
-        button#create-chat-room-btn Create room
     #chat-page.page.invisible   
       div#chat
         div.chat-body
