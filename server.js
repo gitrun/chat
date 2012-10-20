@@ -53,6 +53,7 @@ var compile = function(str, path){
 };
 
 app.configure(function(){
+  app.use(express.favicon(__dirname + "/public/images/favicon.ico"));
   //stylus
   app.use(stylus.middleware({
     src    : __dirname + "/styls",

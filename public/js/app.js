@@ -22,8 +22,8 @@ $(function(){
       $('html').addClass('unlogined');
     } else{
       $('html').addClass('logined');
-      $('div.user img').attr('src', gChat.user.avatar);
-      $('div.user span').text(gChat.user.username);
+      $('ul.top-menu .user img').attr('src', gChat.user.avatar);
+      $('ul.top-menu .user span').text(gChat.user.username);
     }
     next();
   }
@@ -100,6 +100,13 @@ $(function(){
       });
     }
 
+    $('.login-btn').on('click', function(e){
+      e.preventDefault();
+      var pathName = document.location.pathname;
+      localStorage.setItem('lastUrl', pathName);
+      page("/auth");
+    });
+
     $('#msg-send').on("click", postMsg);
     $('.msg-area').keypress(function(e) {
     
@@ -120,7 +127,7 @@ $(function(){
         // 0 is PERMISSION_ALLOWED
         if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
           window.webkitNotifications.createNotification(
-          '', 'New message from ' + data.comment.user.login, data.comment.body).show();
+          '/images/logo-blue.png', 'New message from ' + data.comment.user.login, data.comment.body).show();
         }
       }
     });
@@ -135,7 +142,13 @@ $(function(){
   // ROUTER
 
   page('', renderHeader, function(){
-    showPage('intro-page', 'Intro', renderHomePage);
+    var lastUrl = localStorage.getItem('lastUrl');
+    if(lastUrl){
+      localStorage.removeItem('lastUrl'); 
+      document.location.pathname = lastUrl;
+    } else {
+      showPage('intro-page', 'Intro', renderHomePage);
+    }
   });
 
  
