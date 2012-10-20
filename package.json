@@ -1,6 +1,6 @@
 {
   "name": "gitchat",
-  "version": "0.0.1-13",
+  "version": "0.0.1-14",
   "description": "Simple chat on top of GitHub API",
   "main": "server.js",
   "scripts": {

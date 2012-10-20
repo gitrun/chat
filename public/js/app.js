@@ -32,6 +32,8 @@ $(function(){
 
   }
   function renderChatPage(ctx){
+    var height = $(window).height() - 95;
+    $('#chat .chat-body').height(height);
 
     function renderParticipants(participants){
       var el = $('.chat-mates');
