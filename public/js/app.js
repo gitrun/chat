@@ -159,7 +159,7 @@ $(function(){
   // ROUTER
 
   page('', renderHeader, function(){
-    showPage('home-page', 'Create Chat room', renderHomePage);
+    showPage('intro-page', 'Create Chat room', renderHomePage);
   });
 
  

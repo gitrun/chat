@@ -24,7 +24,11 @@ html(lang="en")
       span
     a(href="/auth").unlogined-show Login
     a(href="/logout").logined-show Logout 
-    #home-page.page.invisible
+    #intro-page.page.invisible
+      section
+       h1 Hi, Hackers!
+       p It's our(<a href="">mine</a>))
+    #create-page.page.invisible
       form(onsubmit="return false;")
         title Create new Chat room
         input#chat-room-name
