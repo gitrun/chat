@@ -52,7 +52,9 @@ $(function(){
       if(!_.isEmpty(gChat.user.username)){
         commentsUrl += '?access_token=' + gChat.user.accessToken;
       }
+      chatContainer.spin();
       $.getJSON(commentsUrl, function(issueCommentsData){
+        chatContainer.spin(false);
         var issueCommentsContainer = $('#issue-comments');
         
         var participants = [];
