@@ -22,8 +22,8 @@ $(function(){
       $('html').addClass('unlogined');
     } else{
       $('html').addClass('logined');
-      $('div.user img').attr('src', gChat.user.avatar);
-      $('div.user span').text(gChat.user.username);
+      $('ul.top-menu .user img').attr('src', gChat.user.avatar);
+      $('ul.top-menu .user span').text(gChat.user.username);
     }
     next();
   }
@@ -144,8 +144,7 @@ $(function(){
   page('', renderHeader, function(){
     var lastUrl = localStorage.getItem('lastUrl');
     if(lastUrl){
-      localStorage.removeItem('lastUrl');
-      // page(lastUrl);     
+      localStorage.removeItem('lastUrl'); 
       document.location.pathname = lastUrl;
     } else {
       showPage('intro-page', 'Intro', renderHomePage);
