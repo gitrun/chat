@@ -40,15 +40,32 @@ body
   position: fixed;
   bottom: 0;
   background-color: #0F202E;
-  height: 97px;
+  height: 95px;
   width: 100%;
   padding: 20px;
-  padding-right: 250px;
+  padding-right: 270px;
 
-textarea
-  left: 0;
-  right: 0;
+.input-wrapper
   width: 100%;
+  & .textarea
+    display: inline-block;
+    padding-right: 72px;
+    width: 100%;
+    & textarea
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 10px;
+      border: none;
+
+#msg-send
+  float: right;
+  vertical-align: top;
+  top: 10px;
+  margin-top: -56px;
+  border: none;
+  height: 52px;
+  width: 52px;
 
 .msg
   height: 45px;
