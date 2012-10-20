@@ -2,7 +2,6 @@
 $(function(){
 
   var chatContainer = $('.chat-body');
-
   $('.msg-area').focus();
   
   function showPage(pageName, pageTitle, fn){
