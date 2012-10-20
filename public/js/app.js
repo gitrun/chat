@@ -110,6 +110,7 @@ $(function(){
 
       $('.msg-area').val('');
       $('.msg-area').focus();
+      msg = "<p>" + msg + "</p>";
       renderMessage(msg, gChat.user, new Date().toISOString());
       var scrollHeight = $(".chat-body")[0].scrollHeight;
       $(".chat-body").animate({scrollTop: scrollHeight}, 800);
@@ -152,7 +153,7 @@ $(function(){
     socket.on(channel, function (data) {
       console.log('message from server',data);
       if(data.comment.user.login != gChat.user.username){
-        renderMessage(data.comment.body, data.comment.user, data.comment.created_at);
+        renderMessage("<p>" + data.comment.body + "</p>", data.comment.user, data.comment.created_at);
         // 0 is PERMISSION_ALLOWED
         if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
           window.webkitNotifications.createNotification(
