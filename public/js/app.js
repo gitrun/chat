@@ -28,7 +28,18 @@ $(function(){
     next();
   }
 
-  function renderHomePage(){}
+  function renderHomePage(){
+    $('#create-chat-room-btn').on('click', function(){
+      var name = $('#chat-room-name').val();
+      var members = $('#chat-room-name').val();
+      var data = {"title": name, "body": members};  
+      var url = 'https://api.github.com/repos/' + ctx.user + '/' + ctx.repo + '/issues/' + ctx.id + '?access_token=' + gChat.user.accessToken;
+      $.post(url, JSON.stringify(data), function(data) {
+        var url = data.html_url.split("/")
+        page("/room/" + url[3] + "/" + url[4] + "/" + url[5] + "/" + url[6]);
+      });
+    });
+  }
   function renderChatPage(ctx){
 
     function renderParticipants(participants){
@@ -115,7 +126,6 @@ $(function(){
         renderMessage(data.comment.body, data.comment.user, data.comment.created_at);
         // 0 is PERMISSION_ALLOWED
         if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
-          // function defined in step 2
           window.webkitNotifications.createNotification(
           '', 'New message from ' + data.comment.user.login, data.comment.body).show();
         }
@@ -136,7 +146,7 @@ $(function(){
   });
 
  
-  page('/group/:user/:repo/:id', renderHeader, function(ctx){
+  page('/room/:user/:repo/:id', renderHeader, function(ctx){
     showPage('chat-page', "Chat Room", function(){
       renderChatPage(ctx.params);
     });

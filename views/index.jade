@@ -26,16 +26,19 @@ html(lang="en")
     a(href="/logout").logined-show Logout 
     #home-page.page.invisible
       form(onsubmit="return false;")
+        title Create new Chat room
         input#chat-room-name
+        select#user-repo-select(required)
+          option Choose repository
         textarea#chat-room-members
-        button#create-chat-room Create room
+        button#create-chat-room-btn Create room
     #chat-page.page.invisible   
       div#chat
         div.chat-body
         div#input-area
           div.input-wrapper
             div.textarea
-              textarea.msg-area
+              textarea(rows=2).msg-area
             button#msg-send Send
       ul.chat-mates
   script(src="/js/underscore-min.js")
