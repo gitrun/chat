@@ -100,6 +100,13 @@ $(function(){
       });
     }
 
+    $('.login-btn').on('click', function(e){
+      e.preventDefault();
+      var pathName = document.location.pathname;
+      localStorage.setItem('lastUrl', pathName);
+      page("/auth");
+    });
+
     $('#msg-send').on("click", postMsg);
     $('.msg-area').keypress(function(e) {
     
@@ -135,7 +142,13 @@ $(function(){
   // ROUTER
 
   page('', renderHeader, function(){
-    showPage('intro-page', 'Intro', renderHomePage);
+    var lastUrl = localStorage.getItem('lastUrl');
+    if(lastUrl){
+      page(lastUrl);
+      localStorage.removeItem('lastUrl');
+    } else {
+      showPage('intro-page', 'Intro', renderHomePage);
+    }
   });
 
  
