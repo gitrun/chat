@@ -57,6 +57,7 @@ body
 
 .chat-body
   overflow-y: auto;
+  overflow-x: hidden;
   width: 100%;
 
 #chat-menu
@@ -173,7 +174,6 @@ body
   z-index: 1
 
 .msg
-  height: 45px;
   background-color: #ffffff;
   width: 100%;
   & .sender
@@ -184,6 +184,7 @@ body
     position: relative;
     vertical-align: middle;
     float: left;
+    clear: both;
     &:after
       content: "";
       display: inline-block;
@@ -201,6 +202,9 @@ body
   & .msg-body
     margin-left: 65px;
     padding-top: 7px;
+    width: 100%;
+    & p
+      width: 100%;
     & a
       text-decoration: none;
       &:hover
