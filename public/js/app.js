@@ -42,7 +42,7 @@ $(function(){
         var user = participants[i];
         var username = user.username || user.login;
         var avatar = user.avatar || user.avatar_url;
-        var html = '<li><img class="avatar" src="' + avatar + '"><span>' + username + '</span></li>';
+        var html = '<li><img class="avatar" src="' + avatar + '"><span class="minimize-hide">' + username + '</span></li>';
         el.append(html);
       }
 
@@ -124,11 +124,11 @@ $(function(){
     });
     
     $('.toggle-panel-btn').on('click', function(){
-      var chatMenu = $("#chat-menu");
-      if(chatMenu.hasClass('maximized')){
-        chatMenu.removeClass('maximized').addClass("minimized");
+      var chatPage = $("#chat-page");
+      if(chatPage.hasClass('menu-maximized')){
+        chatPage.removeClass('menu-maximized').addClass("menu-minimized");
       } else {
-        chatMenu.removeClass('minimized').addClass("maximized");
+        chatPage.removeClass('menu-minimized').addClass("menu-maximized");
       }
 
     });

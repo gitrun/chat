@@ -27,15 +27,41 @@ body
 
 #chat
   position: absolute;
-  width: 100%;
+  transition: right .4s linear;
   bottom: 97px;
-  padding-right: 250px;
+  right: 250px;
+  left: 0;
+
+#chat-page
+  & #chat-menu
+    & .minimize-hide
+      opacity: 1;
+      transition: opacity .1s linear;
+  &.menu-minimized
+    & #chat-menu
+      width: 46px;
+      transition: width .4s linear;
+      & .minimize-hide
+        display: none;
+        // opacity: 0;
+        // transition: opacity .1s linear;
+        // width: 0;
+        // height: 0;
+
+    & #chat
+      right: 46px;
+      transition: right .4s linear;
+    & #input-area
+      right: 46px;  
+      transition: right .4s linear;    
 
 .chat-body
   overflow-y: auto;
+  width: 100%;
 
 #chat-menu
   width: 250px;
+  transition: width .4s linear;
   height: 100%;
   background-color: #08BCD9 ;
   position: fixed;
@@ -43,11 +69,17 @@ body
   top: 0;
   color: white;
 
+  & footer
+    position: fixed;
+    bottom: 0;
+
+
 .top-menu
   & .user img
     float: left;
   & .user span
     padding-top: 5px;
+    margin-top: 3px;
   & .user a
     text-transform: uppercase;
     color: white;
@@ -58,10 +90,11 @@ body
   & .avatar
     border: 2px solid white;
 
+
 .login-btn
   border: none;
   width: 249px;
-  height: 40px;
+  height: 43px;
   background-color: #04A3C9;
   color: white;
   text-transform: uppercase;
@@ -99,10 +132,12 @@ body
 #input-area
   position: fixed;
   bottom: 0;
+  right: 250px;
   background-color: #0F202E;
   height: 95px;
   width: 100%;
-  padding: 20px 270px 20px 5px;
+  transition: right .4s linear;
+  padding: 20px 20px 20px 5px;
   &:hover #msg-send
     background: #04a3c9 url('images/send-btn.png');
     cursor: pointer;
@@ -140,6 +175,7 @@ body
 .msg
   height: 45px;
   background-color: #ffffff;
+  width: 100%;
   & .sender
     height: 45px;
     width: 45px;
