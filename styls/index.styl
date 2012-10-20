@@ -22,13 +22,13 @@ body
   color: #333333;
   font-size: 14px;
 
-.chat-body
+#chat
   position: absolute;
   width: 100%;
   bottom: 97px;
   padding-right: 250px;
 
-.chat-mates
+#chat-menu
   width: 250px;
   height: 100%;
   background-color: #08BCD9 ;
@@ -36,15 +36,19 @@ body
   right: 0;
   top: 0;
   color: white;
+
+.chat-mates
   vertical-align: middle;
   & .avatar
     width: 35px;
     height: 35px;
     margin: 5px;
     vertical-align: middle;
-    opacity: 0.9;
+    border: 2px solid white;
   & span
     vertical-align: middle;
+  & li:hover
+    background-color: #04a3c9;
 
 #input-area
   position: fixed;
