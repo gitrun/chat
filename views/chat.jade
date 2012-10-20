@@ -6,7 +6,7 @@
         div.textarea
           textarea(rows=2).msg-area
         button#msg-send Send
-  div#chat-menu
+  div#chat-menu.maximized
     ul.top-menu
       li.user
         img.avatar.logined-show
@@ -17,3 +17,5 @@
       div.users-icon
         img(src="/images/users-icon.png")
         span Users
+    footer
+      button.toggle-panel-btn
