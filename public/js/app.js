@@ -69,6 +69,9 @@ $(function(){
         }
         participants = _.uniq(participants, false, function(user){ return parseInt(user.id, 10);});
         renderParticipants(participants);
+      }).error(function(){
+        alert("Chat room doesn't exist");
+        chatContainer.spin(false);
       });
     }
 
