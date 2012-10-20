@@ -90,7 +90,7 @@ $(function(){
       var html = '<div class="msg">';
       html += '<div class="sender">';
       html += '<img class="avatar" src="' + avatar + '"></div>';
-      html += '<div class="msg-body"><p>' + msg + '</p>';
+      html += '<div class="msg-body">' + msg;
       html += '<span class="date">' + readableDate  + '</span><span class="by-label">by</span><a class="author" href="' + profileLink + '" target="_blank">' + username + '</a></div></div>';
 
       chatContainer.append(html);
