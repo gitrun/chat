@@ -68,7 +68,8 @@ $(function(){
         
         for (; i < issueCommentsData.length; i++) {
           participants.push(issueCommentsData[i].user);
-          renderMessage(issueCommentsData[i].body, issueCommentsData[i].user, issueCommentsData[i].created_at);
+          var message = makeHtml(issueCommentsData[i].body);
+          renderMessage(message, issueCommentsData[i].user, issueCommentsData[i].created_at);
         }
         if(!_.isEmpty(gChat.user.username)){
           participants.push(gChat.user);
