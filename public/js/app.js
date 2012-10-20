@@ -137,7 +137,8 @@ $(function(){
     renderHistory();
     
     var socket = io.connect('http://gitchat.jit.su');
-    socket.on('messages', function (data) {
+    var channel = ctx.user + '/' + ctx.repo  + '/' + ctx.id;
+    socket.on(channel, function (data) {
       console.log('message from server',data);
       if(data.comment.user.login != gChat.user.username){
         renderMessage(data.comment.body, data.comment.user, data.comment.created_at);
@@ -159,7 +160,7 @@ $(function(){
   // ROUTER
 
   page('', renderHeader, function(){
-    showPage('intro-page', 'Create Chat room', renderHomePage);
+    showPage('intro-page', 'Intro', renderHomePage);
   });
 
  
