@@ -4,7 +4,7 @@
   "domains": [
     "chat.gitrun.com"
   ],
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Simple chat on top of GitHub API",
   "main": "server.js",
   "scripts": {

@@ -63,7 +63,7 @@ where:
   * `#{ISSUE_ID}` - id of issue you just created on GitHub. It's the last token of URL for that issue.
 
 
-LICENCE
+## License
 ==========
 
 (The MIT License)
