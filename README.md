@@ -3,14 +3,14 @@ gitchat
 
 Chat application build on top of GitHub API.
 
-We are using GitHub issues API and web hooks. 
+We are using GitHub issues API and web hooks.
 After receiving webhook server code will broacast message to other people in the room.
 
 
 Protocol:
   github issue is a room.
   github issue comment is a message inside the room.
-  
+
 Multiple rooms support for free.
 Unlimited amount of private rooms (just create an issue in private repository).
 
@@ -22,7 +22,7 @@ LICENCE
 
 (The MIT License)
 
-Copyright (c) 2012-2013 #{hash:object}(team@hashobject.com)
+Copyright © 2013 HashObject Ltd (team@hashobject.com).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the 'Software'), to deal

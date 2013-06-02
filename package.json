@@ -1,15 +1,18 @@
 {
   "name": "gitchat",
-  "version": "0.0.1-27",
+  "subdomain": "gitchat",
+  "domains": [
+    "chat.gitrun.com"
+  ],
+  "version": "0.0.2",
   "description": "Simple chat on top of GitHub API",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/marynaaleksandrova/gitchat.git"
+    "url": "https://github.com/gitrun/chat.git"
   },
   "dependencies": {
     "express": "3.0.0rc5",
@@ -23,9 +26,8 @@
     "nib": ">=0.8.0",
     "jade": ">=0.26.3"
   },
-  "author": "Enginimation Team",
+  "author": "HashObject Ltd (team@hashobject.com)",
   "license": "MIT",
-  "subdomain": "gitchat",
   "engines": {
     "node": "0.8.x"
   }
