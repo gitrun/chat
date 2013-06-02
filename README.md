@@ -5,7 +5,7 @@ Chat application build on top of GitHub API. It was build in 24 hours during Ber
 
 Hackathon (October 2012).
 
-We are using GitHub Issues API and web hooks.
+We are using [GitHub Issues API](http://developer.github.com/v3/issues/) and [web hooks](http://developer.github.com/v3/repos/hooks/).
 
 After receiving webhook server code will broacast message to other people in the room.
 
@@ -26,6 +26,17 @@ Build using Node.js, Socket.io, jQuery. Hosted on [nodejitsu](https://www.nodeji
 # Demo
 
 Checkout this [link](Berlin Hackathon Room) for chat room of hackers.
+
+Or you can try it by downloading code locally and running it with following commands:
+
+```
+ npm install
+ node server.js
+```
+Then just open [http://localhost:3000/](http://localhost:3000/) in your browser.
+
+Note that real-time updates will not work since web hooks will not work with local servers.
+
 
 # Features
 

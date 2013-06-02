@@ -1,2 +1,3 @@
 node_modules/*
 public/index.css
+configs/production.config.json
