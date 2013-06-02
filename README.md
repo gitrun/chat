@@ -1,21 +1,56 @@
 gitchat
 =======
 
-Chat application build on top of GitHub API.
+Chat application build on top of GitHub API. It was build in 24 hours during Berlin LinkedIn
 
-We are using GitHub issues API and web hooks.
+Hackathon (October 2012).
+
+We are using GitHub Issues API and web hooks.
+
 After receiving webhook server code will broacast message to other people in the room.
 
 
-Protocol:
-  github issue is a room.
-  github issue comment is a message inside the room.
+# Protocol
 
-Multiple rooms support for free.
-Unlimited amount of private rooms (just create an issue in private repository).
+Protocol is super simple:
+
+  * github issue is a room.
+  * github issue comment is a message inside the room.
 
 
-Build using Node.js.
+# Tools
+
+Build using Node.js, Socket.io, jQuery. Hosted on [nodejitsu](https://www.nodejitsu.com).
+
+
+# Demo
+
+Checkout this [link](Berlin Hackathon Room) for chat room of hackers.
+
+# Features
+
+Thich chat app has following cool features:
+
+  * desktop notifications
+  * email notifications
+  * real-time updates (you get all new messages in room immediately)
+  * multiple rooms support
+  * unlimited amount of users inside the room
+  * private rooms support (just create an issue in private repository)
+
+# How to
+
+To create new chat room just create some issue in your own repostory.
+Then just type following url in browser:
+
+```
+  http://gitchat.jit.su/room/#{USER_NAME}/#{REPO_NAME}}/#{ISSUE_ID}
+```
+where:
+  * `#{USER_NAME}` - username of orgnisation name that holds the GitHub repo where you created issue.
+  * `#{REPO_NAME}` - GitHub repo name where you created issue.
+  * `#{ISSUE_ID}` - id of issue you just created on GitHub. It's the last token of URL for that issue.
+
 
 LICENCE
 ==========
