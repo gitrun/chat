@@ -26,7 +26,7 @@
     "nib": ">=0.8.0",
     "jade": ">=0.26.3"
   },
-  "author": "HashObject (team@hashobject.com)",
+  "author": "Hashobject (team@hashobject.com)",
   "license": "MIT",
   "engines": {
     "node": "0.8.x"
