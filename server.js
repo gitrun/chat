@@ -3,6 +3,7 @@ var express        = require("express"),
     nib            = require("nib"),
     nconf          = require("nconf"),
     passport       = require("passport"),
+    bodyParser     = require("body-parser"),
     GitHubStrategy = require("passport-github").Strategy;
 
 
@@ -52,71 +53,66 @@ var compile = function(str, path){
   return func;
 };
 
-app.configure(function(){
-  app.use(express.favicon(__dirname + "/public/images/favicon.ico"));
-  //stylus
-  app.use(stylus.middleware({
-    src    : __dirname + "/styls",
-    dest   : __dirname + "/public",
-    compile: compile
-  }));
+//stylus
+app.use(stylus.middleware({
+  src    : __dirname + "/styls",
+  dest   : __dirname + "/public",
+  compile: compile
+}));
 
-  // views
-  app.set("views", __dirname + "/views");
-  app.set("view engine", "jade");
-  app.set("view options", {layout: false});
+// views
+app.set("views", __dirname + "/views");
+app.set("view engine", "jade");
+app.set("view options", {layout: false});
 
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.session({ secret: 'keyboard cat' }));
+//app.use(express.cookieParser());
+//app.use(bodyParser.json());
+// app.use(express.session({ secret: 'keyboard cat' }));
 
 
-  app.use(passport.initialize());
-  app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-  app.use(app.router);
-  app.use(express.static(__dirname + "/public"));
-});
+// app.use(express.static(__dirname + "/public"));
   
 
-renderIndexPage = function(req, res){
+var renderIndexPage = function(req, res){
   params = { user: req.user || {}};
   res.render("index", params);
 };
 
 app.get("/", renderIndexPage);
 
-app.get("/room/:user/:repo/:id", renderIndexPage);
+// app.get("/room/:user/:repo/:id", renderIndexPage);
 
 
-app.get("/auth", passport.authenticate("github", {scope: "repo"}), function(req, res){});
+// app.get("/auth", passport.authenticate("github", {scope: "repo"}), function(req, res){});
 
 
-app.get("/logout", function(req, res){
-  req.logout();
-  res.redirect("/");
-});
+// app.get("/logout", function(req, res){
+//   req.logout();
+//   res.redirect("/");
+// });
 
-app.get("/auth/callback", passport.authenticate("github", { failureRedirect: "/auth" }), function(req, res){
-  res.redirect("/");
-});
+// app.get("/auth/callback", passport.authenticate("github", { failureRedirect: "/auth" }), function(req, res){
+//   res.redirect("/");
+// });
 
 
 
-var server = require("http").createServer(app);
-var io = require("socket.io").listen(server);
+ var server = require("http").createServer(app);
+// var io = require("socket.io").listen(server);
 
-app.post("/hook", function(req, res){
-  var payload  = req.body;
-  console.log("Hook was called", payload);
-  var url = payload.issue.html_url.split("/");
-  var channel = url[3] + "/" + url[4] + "/" + url[6];
-  console.log('channel name', channel);
-  // we have payload.comment which has body and user.
-  io.sockets.emit(channel, payload);
-  res.send();
-});
+// app.post("/hook", function(req, res){
+//   var payload  = req.body;
+//   console.log("Hook was called", payload);
+//   var url = payload.issue.html_url.split("/");
+//   var channel = url[3] + "/" + url[4] + "/" + url[6];
+//   console.log('channel name', channel);
+//   // we have payload.comment which has body and user.
+//   io.sockets.emit(channel, payload);
+//   res.send();
+// });
 
 
 server.listen(3000);  
