@@ -114,5 +114,6 @@ app.get("/", renderIndexPage);
 //   res.send();
 // });
 
-
-server.listen(3000);  
+var port = process.env.PORT || 3000;
+console.log('starting on a port');
+server.listen(port);  
