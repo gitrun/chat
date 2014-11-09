@@ -25,7 +25,7 @@ Build using Node.js, Socket.io, jQuery. Hosted on [nodejitsu](https://www.nodeji
 
 # Demo
 
-Checkout this [link](Berlin Hackathon Room) for chat room of hackers.
+Checkout this [Berlin Hackathon Room](http://chat.gitrun.com/room/gitrun/chat/4) for chat room of hackers.
 
 Or you can try it by downloading code locally and running it with following commands:
 
