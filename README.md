@@ -68,7 +68,7 @@ where:
 
 (The MIT License)
 
-Copyright © 2013 Hashobject Ltd (team@hashobject.com).
+Copyright © 2013-2014 Hashobject Ltd (team@hashobject.com).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the 'Software'), to deal
