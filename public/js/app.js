@@ -1,9 +1,9 @@
-/*global cUnity: false, console: false, $: false, moment: false, _: false, page: false, async: false, alert: false, Showdown: false, EpicEditor: false, Github: false */
+/*global console: false, $: false, moment: false, _: false, page: false, alert: false, Showdown: false, EpicEditor: false, Github: false */
 $(function(){
 
   var chatContainer = $('.chat-body');
   $('.msg-area').focus();
-  
+
 
   function makeHtml(md){
     var mdConverter = new Showdown.converter();
@@ -62,10 +62,10 @@ $(function(){
       $.getJSON(commentsUrl, function(issueCommentsData){
         chatContainer.spin(false);
         var issueCommentsContainer = $('#issue-comments');
-        
+
         var participants = [];
         var i = 0;
-        
+
         for (; i < issueCommentsData.length; i++) {
           participants.push(issueCommentsData[i].user);
           var message = makeHtml(issueCommentsData[i].body);
@@ -95,8 +95,6 @@ $(function(){
 
       chatContainer.append(html);
     }
-
-
 
 
     function postMsg(){
@@ -135,13 +133,13 @@ $(function(){
 
     $('#msg-send').on("click", postMsg);
     $('.msg-area').keypress(function(e) {
-    
+
       if(e.keyCode == 13) {
         e.preventDefault();
         postMsg();
       }
     });
-    
+
     $('.toggle-panel-btn').on('click', function(){
       var chatPage = $("#chat-page");
       if(chatPage.hasClass('menu-maximized')){
@@ -152,8 +150,8 @@ $(function(){
 
     });
     renderHistory();
-    
-    var socket = io.connect('http://gitchat.jit.su');
+
+    var socket = io.connect('/');
     var channel = ctx.user + '/' + ctx.repo  + '/' + ctx.id;
     socket.on(channel, function (data) {
       console.log('message from server',data);
@@ -174,9 +172,9 @@ $(function(){
   }
 
 
-  
 
-  
+
+
 
   // ROUTER
 
@@ -190,7 +188,7 @@ $(function(){
     }
   });
 
- 
+
   page('/room/:user/:repo/:id', renderHeader, function(ctx){
     showPage('chat-page', "Chat Room", function(){
       renderChatPage(ctx.params);

@@ -1,10 +1,13 @@
-var express        = require("express"),
-    stylus         = require("stylus"),
-    nib            = require("nib"),
-    nconf          = require("nconf"),
-    passport       = require("passport"),
-    bodyParser     = require("body-parser"),
-    GitHubStrategy = require("passport-github").Strategy;
+'use strict';
+var express        = require('express'),
+    stylus         = require('stylus'),
+    nib            = require('nib'),
+    nconf          = require('nconf'),
+    passport       = require('passport'),
+    bodyParser     = require('body-parser'),
+    cookieParser   = require('cookie-parser'),
+    session        = require('express-session'),
+    GitHubStrategy = require('passport-github').Strategy;
 
 
 var app = module.exports = express();
@@ -13,8 +16,8 @@ var app = module.exports = express();
 nconf
   .argv()
   .env()
-  .file({file: __dirname + "/configs/" + app.settings.env + ".config.json"})
-  .defaults({"NODE_ENV": "development"});
+  .file({file: __dirname + '/configs/' + app.settings.env + '.config.json'})
+  .defaults({'NODE_ENV': 'development'});
 
 
 passport.serializeUser(function(user, done){
@@ -28,9 +31,9 @@ passport.deserializeUser(function(obj, done){
 
 
 passport.use(new GitHubStrategy({
-    clientID: nconf.get("GITHUB_CLIENT_ID"),
-    clientSecret: nconf.get("GITHUB_CLIENT_SECRET"),
-    callbackURL: nconf.get("GITHUB_CALLBACK_URL")
+    clientID: nconf.get('GITHUB_CLIENT_ID'),
+    clientSecret: nconf.get('GITHUB_CLIENT_SECRET'),
+    callbackURL: nconf.get('GITHUB_CALLBACK_URL')
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function(){
@@ -45,75 +48,79 @@ passport.use(new GitHubStrategy({
 var compile = function(str, path){
 
   var func = stylus(str)
-    .define("url", stylus.url({ paths: [__dirname + "/public"] }))
-    .set("filename", path)
-    .set("warn", true)
-    .set("compress", true)
+    .define('url', stylus.url({ paths: [__dirname + '/public'] }))
+    .set('filename', path)
+    .set('warn', true)
+    .set('compress', true)
     .use(nib());
   return func;
 };
 
 //stylus
 app.use(stylus.middleware({
-  src    : __dirname + "/styls",
-  dest   : __dirname + "/public",
+  src    : __dirname + '/styls',
+  dest   : __dirname + '/public',
   compile: compile
 }));
 
 // views
-app.set("views", __dirname + "/views");
-app.set("view engine", "jade");
-app.set("view options", {layout: false});
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.set('view options', {layout: false});
 
-//app.use(express.cookieParser());
-//app.use(bodyParser.json());
-// app.use(express.session({ secret: 'keyboard cat' }));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(session({
+  secret: 'CHANGE_THIS_IN_PROD',
+  cookie: {}
+}));
 
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
-// app.use(express.static(__dirname + "/public"));
-  
+app.use(express.static(__dirname + '/public'));
 
 var renderIndexPage = function(req, res){
-  params = { user: req.user || {}};
-  res.render("index", params);
+  var params = { user: req.user || {}};
+  res.render('index', params);
 };
 
-app.get("/", renderIndexPage);
+app.get('/', renderIndexPage);
 
-// app.get("/room/:user/:repo/:id", renderIndexPage);
-
-
-// app.get("/auth", passport.authenticate("github", {scope: "repo"}), function(req, res){});
+app.get('/room/:user/:repo/:id', renderIndexPage);
 
 
-// app.get("/logout", function(req, res){
-//   req.logout();
-//   res.redirect("/");
-// });
-
-// app.get("/auth/callback", passport.authenticate("github", { failureRedirect: "/auth" }), function(req, res){
-//   res.redirect("/");
-// });
+app.get('/auth', passport.authenticate('github', {scope: 'repo'}), function(req, res){});
 
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
- var server = require("http").createServer(app);
-// var io = require("socket.io").listen(server);
+app.get('/auth/callback', passport.authenticate('github', { failureRedirect: '/auth' }), function(req, res){
+  res.redirect('/');
+});
 
-// app.post("/hook", function(req, res){
-//   var payload  = req.body;
-//   console.log("Hook was called", payload);
-//   var url = payload.issue.html_url.split("/");
-//   var channel = url[3] + "/" + url[4] + "/" + url[6];
-//   console.log('channel name', channel);
-//   // we have payload.comment which has body and user.
-//   io.sockets.emit(channel, payload);
-//   res.send();
-// });
 
-var port = process.env.PORT || 3000;
-console.log('starting on a port');
-server.listen(port);  
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.post('/hook', function(req, res){
+  var payload  = req.body;
+  console.log('Hook was called', payload);
+  var url = payload.issue.html_url.split('/');
+  var channel = url[3] + '/' + url[4] + '/' + url[6];
+  console.log('channel name', channel);
+  // we have payload.comment which has body and user.
+  io.sockets.emit(channel, payload);
+  res.send();
+});
+
+if (!module.parent) {
+  var port = process.env.PORT || 3000;
+  http.listen(port, function(){
+    console.log('Express started on port ' + port);
+  });
+}

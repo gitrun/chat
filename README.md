@@ -31,7 +31,7 @@ Or you can try it by downloading code locally and running it with following comm
 
 ```
  npm install
- node server.js
+ npm start
 ```
 Then just open [http://localhost:3000/](http://localhost:3000/) in your browser.
 
@@ -40,7 +40,7 @@ Note that real-time updates will not work since web hooks will not work with loc
 
 # Features
 
-Thich chat app has following cool features:
+Chat app has following cool features:
 
   * desktop notifications
   * email notifications
@@ -51,11 +51,11 @@ Thich chat app has following cool features:
 
 # How to
 
-To create new chat room just create some issue in your own repostory.
+To create new chat room just create new issue in your own repository.
 Then just type following url in browser:
 
 ```
-  http://gitchat.jit.su/room/#{USER_NAME}/#{REPO_NAME}}/#{ISSUE_ID}
+  http://chat.gitrun.com/room/#{USER_NAME}/#{REPO_NAME}}/#{ISSUE_ID}
 ```
 where:
   * `#{USER_NAME}` - username of orgnisation name that holds the GitHub repo where you created issue.
