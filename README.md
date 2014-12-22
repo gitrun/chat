@@ -20,7 +20,7 @@ Protocol is super simple:
 
 # Tools
 
-Build using Node.js, Socket.io, jQuery. Hosted on [nodejitsu](https://www.nodejitsu.com).
+Build using Node.js, Socket.io, jQuery. Hosted on [Heroku](https://heroku.com).
 
 
 # Demo
