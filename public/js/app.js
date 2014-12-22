@@ -1,8 +1,98 @@
+/**
+ * Copyright (c) 2011-2014 Felix Gnass
+ * Licensed under the MIT license
+ */
+
+/*
+
+Basic Usage:
+============
+
+$('#el').spin(); // Creates a default Spinner using the text color of #el.
+$('#el').spin({ ... }); // Creates a Spinner using the provided options.
+
+$('#el').spin(false); // Stops and removes the spinner.
+
+Using Presets:
+==============
+
+$('#el').spin('small'); // Creates a 'small' Spinner using the text color of #el.
+$('#el').spin('large', '#fff'); // Creates a 'large' white Spinner.
+
+Adding a custom preset:
+=======================
+
+$.fn.spin.presets.flower = {
+  lines: 9
+  length: 10
+  width: 20
+  radius: 0
+}
+
+$('#el').spin('flower', 'red');
+
+*/
+
+(function(factory) {
+
+  if (typeof exports == 'object') {
+    // CommonJS
+    factory(require('jquery'), require('spin'))
+  }
+  else if (typeof define == 'function' && define.amd) {
+    // AMD, register as anonymous module
+    define(['jquery', 'spin'], factory)
+  }
+  else {
+    // Browser globals
+    if (!window.Spinner) throw new Error('Spin.js not present')
+    factory(window.jQuery, window.Spinner)
+  }
+
+}(function($, Spinner) {
+
+  $.fn.spin = function(opts, color) {
+
+    return this.each(function() {
+      var $this = $(this),
+        data = $this.data();
+
+      if (data.spinner) {
+        data.spinner.stop();
+        delete data.spinner;
+      }
+      if (opts !== false) {
+        opts = $.extend(
+          { color: color || $this.css('color') },
+          $.fn.spin.presets[opts] || opts
+        )
+        data.spinner = new Spinner(opts).spin(this)
+      }
+    })
+  }
+
+  $.fn.spin.presets = {
+    tiny: { lines: 8, length: 2, width: 2, radius: 3 },
+    small: { lines: 8, length: 4, width: 3, radius: 5 },
+    large: { lines: 10, length: 8, width: 4, radius: 8 }
+  }
+
+}));
 /*global console: false, $: false, moment: false, _: false, page: false, alert: false, Showdown: false, EpicEditor: false, Github: false */
 $(function(){
   'use strict';
   var chatContainer = $('.chat-body');
   $('.msg-area').focus();
+
+  function convertUsernamesToLinks (text) {
+    return text.split(' ').map(function(token) {
+      if(token.length > 1 && token[0] === '@') {
+        return '[' + token + '](https://github.com/' + token.substr(1) + ')';
+      } else {
+        return token;
+      }
+    }).join(' ');
+  }
 
 
   function makeHtml(md){
@@ -10,15 +100,17 @@ $(function(){
     return mdConverter.makeHtml(md);
   }
 
+  function makeHtmlMessage (md) {
+    var text = convertUsernamesToLinks(md);
+    return makeHtml(text);
+  }
+
   function showPage(pageName, pageTitle, fn){
     $('.page.visible').removeClass('visible').addClass('invisible');
-
     $('#' + pageName).removeClass('invisible').addClass('visible');
     document.title = pageTitle;
-    $('html').attr("data-page-name", pageName);
-    if(fn){
-      fn();
-    }
+    $('html').attr('data-page-name', pageName);
+    fn();
   }
 
   function renderHeader(ctx, next){
@@ -32,9 +124,8 @@ $(function(){
     next();
   }
 
-  function renderHomePage(){
+  function renderHomePage(){}
 
-  }
   function renderChatPage(ctx){
     var height = $(window).height() - 95;
     $('#chat .chat-body').height(height);
@@ -67,7 +158,8 @@ $(function(){
 
         for (; i < issueCommentsData.length; i++) {
           participants.push(issueCommentsData[i].user);
-          var message = makeHtml(issueCommentsData[i].body);
+          var commentText = issueCommentsData[i].body;
+          var message = makeHtmlMessage(commentText);
           renderMessage(message, issueCommentsData[i].user, issueCommentsData[i].created_at);
         }
         if(!_.isEmpty(gChat.user.username)){
@@ -76,7 +168,7 @@ $(function(){
         participants = _.uniq(participants, false, function(user){ return parseInt(user.id, 10);});
         renderParticipants(participants);
       }).error(function(){
-        alert("Chat room doesn't exist");
+        alert('Chat room doesnot exist');
         chatContainer.spin(false);
       });
     }
@@ -113,10 +205,10 @@ $(function(){
       $('.msg-area').val('');
       $('.msg-area').focus();
       var msgData = {'body': msg};
-      var message = makeHtml(msg);
+      var message = makeHtmlMessage(msg);
       renderMessage(message, gChat.user, new Date().toISOString());
-      var scrollHeight = $(".chat-body")[0].scrollHeight;
-      $(".chat-body").animate({scrollTop: scrollHeight}, 800);
+      var scrollHeight = $('.chat-body')[0].scrollHeight;
+      $('.chat-body').animate({scrollTop: scrollHeight}, 800);
       var commentsUrl = 'https://api.github.com/repos/' + ctx.user + '/' + ctx.repo + '/issues/' + ctx.id + '/comments?access_token=' + gChat.user.accessToken;
       $.post(commentsUrl, JSON.stringify(msgData), function(data) {
         console.log('done!');
@@ -127,10 +219,10 @@ $(function(){
       e.preventDefault();
       var pathName = document.location.pathname;
       localStorage.setItem('lastUrl', pathName);
-      page("/auth");
+      page('/auth');
     });
 
-    $('#msg-send').on("click", postMsg);
+    $('#msg-send').on('click', postMsg);
     $('.msg-area').keypress(function(e) {
 
       if(e.keyCode == 13) {
@@ -140,11 +232,11 @@ $(function(){
     });
 
     $('.toggle-panel-btn').on('click', function(){
-      var chatPage = $("#chat-page");
+      var chatPage = $('#chat-page');
       if(chatPage.hasClass('menu-maximized')){
-        chatPage.removeClass('menu-maximized').addClass("menu-minimized");
+        chatPage.removeClass('menu-maximized').addClass('menu-minimized');
       } else {
-        chatPage.removeClass('menu-minimized').addClass("menu-maximized");
+        chatPage.removeClass('menu-minimized').addClass('menu-maximized');
       }
 
     });
@@ -153,15 +245,14 @@ $(function(){
     var socket = io.connect('/');
     var channel = ctx.user + '/' + ctx.repo  + '/' + ctx.id;
     socket.on(channel, function (data) {
-      console.log('message from server',data);
       if(data.comment.user.login != gChat.user.username){
-        var message = makeHtml(data.comment.body);
+        var message = makeHtmlMessage(data.comment.body);
         renderMessage(message, data.comment.user, data.comment.created_at);
-        var scrollHeight = $(".chat-body")[0].scrollHeight;
-        $(".chat-body").animate({scrollTop: scrollHeight}, 800);
+        var scrollHeight = $('.chat-body')[0].scrollHeight;
+        $('.chat-body').animate({scrollTop: scrollHeight}, 800);
         // 0 is PERMISSION_ALLOWED
         if (window.webkitNotifications && window.webkitNotifications.checkPermission() === 0) {
-          var msg = data.comment.body.replace(/(<([^>]+)>)/ig,"");
+          var msg = data.comment.body.replace(/(<([^>]+)>)/ig,'');
           window.webkitNotifications.createNotification(
           '/images/logo-blue.png', 'New message from ' + data.comment.user.login, msg).show();
         }
@@ -169,11 +260,6 @@ $(function(){
     });
 
   }
-
-
-
-
-
 
   // ROUTER
 
@@ -189,7 +275,7 @@ $(function(){
 
 
   page('/room/:user/:repo/:id', renderHeader, function(ctx){
-    showPage('chat-page', "Chat Room", function(){
+    showPage('chat-page', 'Chat Room', function(){
       renderChatPage(ctx.params);
     });
   });

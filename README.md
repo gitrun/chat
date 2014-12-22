@@ -55,7 +55,7 @@ To create new chat room just create new issue in your own repository.
 Then just type following url in browser:
 
 ```
-  http://chat.gitrun.com/room/#{USER_NAME}/#{REPO_NAME}}/#{ISSUE_ID}
+  http://chat.gitrun.com/room/#{USER_NAME}/#{REPO_NAME}/#{ISSUE_ID}
 ```
 where:
   * `#{USER_NAME}` - username of orgnisation name that holds the GitHub repo where you created issue.
