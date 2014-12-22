@@ -1,6 +1,6 @@
 /*global console: false, $: false, moment: false, _: false, page: false, alert: false, Showdown: false, EpicEditor: false, Github: false */
 $(function(){
-
+  'use strict';
   var chatContainer = $('.chat-body');
   $('.msg-area').focus();
 
@@ -20,7 +20,6 @@ $(function(){
       fn();
     }
   }
-
 
   function renderHeader(ctx, next){
     if(_.isEmpty(gChat.user.username)){
