@@ -1,7 +1,7 @@
 gitchat
 =======
 
-[![Chat](http://chat.gitrun.com/images/gitchat-badge.svg)](http://chat.gitrub.com/gitrun/chat/issues/17)
+[![Chat](http://chat.gitrun.com/images/gitchat-badge.svg)](http://chat.gitrun.com/gitrun/chat/issues/17)
 
 Chat application build on top of GitHub API. It was build in 24 hours during Berlin LinkedIn
 
