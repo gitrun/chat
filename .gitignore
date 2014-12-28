@@ -1,3 +1,5 @@
 node_modules/*
 public/index.css
 configs/production.config.json
+DS_Store
+.DS_Store
