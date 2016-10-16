@@ -40,6 +40,43 @@ Then just open [http://localhost:3000/](http://localhost:3000/) in your browser.
 Note that real-time updates will not work since web hooks will not work with local servers.
 
 
+# Run yourself locally
+
+If you want to run this app locally do following:
+
+```
+  git clone https://github.com/gitrun/chat/
+  cd chat
+  npm install
+```  
+
+There is a configuration file with GitHub clientID and clientSecret in the `configs/development.config.json`.
+You can keep it as is and just run `npm start`. It will use default GitHub app created by me.
+
+You can also create your own GitHub application on https://github.com/settings/developers. Please specify callback URL as http://localhost:3000/auth/callback and copy new clientID and clientSecret into the `configs/development.config.json`.
+
+Run `npm start` and visit `http://localhost:3000/`.
+You can verify that everything works if you can open `http://localhost:3000/room/gitrun/chat/4` and click "Join!" button in the top right corner.
+
+
+# Run yourself on Heroku
+
+If you want to run this app on Heroku do following:
+
+```
+  git clone https://github.com/gitrun/chat/
+  cd chat
+  npm install
+```  
+
+There is a configuration file with GitHub clientID and clientSecret in the `configs/development.config.json`.
+You can keep it as is and proceed further or you can also create your own GitHub application on https://github.com/settings/developers. Please copy new clientID and clientSecret into the `configs/development.config.json`.
+
+In order to continue with Heroku you need to install [Toolbelt](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up).
+Then in the chat directory do `heroku create` as mentioned [here](https://devcenter.heroku.com/articles/getting-started-with-nodejs#deploy-the-app) and then `git push heroku master`.
+At this point Heroku will create new URL for your app (something like http://sharp-rain-871.herokuapp.com/). If you decided to use your own GitHub App you need to update callback URL to the one created by Heroku. Please update this URL in both `configs/development.config.json` and on GitHub settings page for your application.
+
+
 # Features
 
 Chat app has following cool features:
