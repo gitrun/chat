@@ -70,6 +70,7 @@ If you want to run this app on Heroku do following:
 ```  
 
 There is a configuration file with GitHub clientID and clientSecret in the `configs/development.config.json`.
+Please copy content of this file into the new one called `configs/production.config.json`.
 You can keep it as is and proceed further or you can also create your own GitHub application on https://github.com/settings/developers. Please copy new clientID and clientSecret into the `configs/development.config.json`.
 
 In order to continue with Heroku you need to install [Toolbelt](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up).
